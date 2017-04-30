@@ -7,47 +7,41 @@
 import React, { Component } from 'react';
 import {
   AppRegistry,
-  StyleSheet,
+  StatusBar,
   Text,
   View
 } from 'react-native';
 
+import styles from './styles';
+
+import Home from './home';
+import Name from './name';
+import Register from './register';
+
 export default class apollo extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      screens: {
+        home: <Home switchScreen={this.handleScreen} />,
+        name: <Name switchScreen={this.handleScreen} />,
+        register: <Register />
+      },
+      currentScreen: 'home'
+    };
+  }
+  handleScreen = (screen) => {
+    this.setState({currentScreen: screen});
+  }
   render() {
+    let screen = this.state.screens[this.state.currentScreen];
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.android.js
-        </Text>
-        <Text style={styles.instructions}>
-          Double tap R on your keyboard to reload,{'\n'}
-          Shake or press menu button for dev menu
-        </Text>
+        <StatusBar hidden />
+        {screen}
       </View>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
 
 AppRegistry.registerComponent('apollo', () => apollo);

@@ -23,6 +23,8 @@ export default class apollo extends Component {
     super(props);
     this.state = {
       screens: {
+        practice: <Practice switchScreen={this.handleScreen} />,
+        add: <Add switchScreen={this.handleScreen} />,
         home: <Home switchScreen={this.handleScreen} />,
         name: <Name switchScreen={this.handleScreen} />,
         register: <Register />

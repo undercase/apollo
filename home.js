@@ -15,7 +15,7 @@ class Home extends Component {
       <Image source={background} style={styles.background}>
         <Text style={styles.logo}>apollo</Text>
         <View style={styles.buttons}>
-          <TouchableHighlight onPress={() => {this.props.switchScreen('check')}} underlayColor="#e281a6" style={[styles.button, {marginBottom: 10}]}>
+          <TouchableHighlight onPress={() => {this.props.switchScreen('checkin')}} underlayColor="#e281a6" style={[styles.button, {marginBottom: 10}]}>
             <Text style={styles.buttonText}>CHECK IN</Text>
           </TouchableHighlight>
           <TouchableHighlight onPress={() => {this.props.switchScreen('name')}} underlayColor="#e281a6" style={styles.button}>

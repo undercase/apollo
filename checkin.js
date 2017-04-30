@@ -10,16 +10,34 @@ import Camera from 'react-native-camera';
 
 import styles from './styles';
 
-class Register extends Component {
+class CheckIn extends Component {
   constructor(props) {
     super(props);
   }
   takePicture() {
     this.camera.capture()
       .then((image) => {
-        this.props.enroll(image);
-        alert("You've successfully registered")
-        this.props.switchScreen('home');
+        fetch('https://api.kairos.com/recognize', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'app_id': '45a0d854',
+            'app_key': '6ed2f59daeb956cae4ebc7237e8ceab6'
+          },
+          body: JSON.stringify({
+            'image': image.data,
+            'gallery_name': 'apollo-dev-1'
+          })
+        })
+          .then(res => res.json())
+          .then(res => {
+            if ("Errors" in res) {
+              alert("Your face wasn't recognized - please try again.")
+            } else {
+              this.props.chooseCandidate(res.images[0].candidates[0]);
+              this.props.switchScreen('candidate');
+            }
+          });
       });
   }
   render() {
@@ -47,4 +65,4 @@ class Register extends Component {
   }
 }
 
-export default Register;
+export default CheckIn;
